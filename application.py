@@ -2,17 +2,17 @@ import pickle
 from flask import Flask, request, jsonify, render_template
 from sklearn.preprocessing import StandardScaler
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 ridge_model = pickle.load(open('model/ridge.pkl', 'rb'))
 scaler_model = pickle.load(open('model/scaler.pkl', 'rb'))
 
 ## Route for Home Page
-@app.route('/')
+@application.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/predictdata', methods=['GET','POST'])
+@application.route('/predictdata', methods=['GET','POST'])
 def predict_datapoint():
     if request.method == 'POST':
         Temperature = float(request.form.get('Temperature'))
@@ -37,4 +37,4 @@ def predict_datapoint():
         return render_template('home.html')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    application.run(host="0.0.0.0")
